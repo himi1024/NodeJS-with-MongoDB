@@ -3,7 +3,7 @@ const router = express.Router()
 
 // Import the Employee Controller
 const EmployeeController = require('../controllers/EmployeeController')
-const Employee = require('../models/Employee')
+// const Employee = require('../models/Employee')
 
 
 //API Endpoint
