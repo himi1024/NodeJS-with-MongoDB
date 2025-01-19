@@ -46,8 +46,8 @@ const login = (req, res, next) => {
                     })
                 }
                 if(result){
-                    let token = jwt.sign({name: user.name}, 'verySecretValue', {expiresIn: '30s'})
-                    let refreshToken = jwt.sign({name: user.name}, 'refreshToken', {expiresIn: '48h'})
+                    let token = jwt.sign({name: user.name}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: process.env.ACESS_TOKEN_EXPIRE_TIME})
+                    let refreshToken = jwt.sign({name: user.name}, process.env.REFRESH_TOKEN_SECRET, {expiresIn: process.env.REFRESH_TOKEN_EXPIRE_TIME})
                     res.json({
                         message: 'Login Successful',
                         token,
@@ -69,13 +69,13 @@ const login = (req, res, next) => {
 
 const refreshToken = (req, res, next) => {
     const refreshToken = req.body.refreshToken
-    jwt.verify(refreshToken, 'refreshToken', function(err, decode){
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, function(err, decode){
         if(err){
             res.status(400).json({
                 err
             })
         }else{
-            let token = jwt.sign({name: decode.name}, 'verySecretValue', {expiresIn:'60s'})
+            let token = jwt.sign({name: decode.name}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: process.env.ACESS_TOKEN_EXPIRE_TIME})
             let refreshToken = req.body.refreshToken
             res.status(200).json({
                 message: "Token Refreshed successfully",

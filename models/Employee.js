@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+const mongoosePaginate = require('mongoose-paginate-v2')
+
 const employeeScheme = new Schema({
     name:        { type: String },
     designation: { type: String },
@@ -10,5 +12,6 @@ const employeeScheme = new Schema({
     avatar:      { type: String }
 }, {timestamps: true})
 
+employeeScheme.plugin(mongoosePaginate)
 const Employee = mongoose.model('Employee', employeeScheme)
 module.exports = Employee

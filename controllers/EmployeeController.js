@@ -4,17 +4,31 @@ const Employee = require('../models/Employee')
 
 // List out the Employees
 const index = (req, res, next) => {
-    Employee.find()
-    .then(response => {
-        res.json({
-            response
+    if(req.query.page && req.query.limit) {
+        Employee.paginate({}, { page: req.query.page, limit: req.query.limit })
+        .then(data => {
+            res.status(200).json({
+                data
+            })
         })
-    })
-    .catch(error => {
-        res.json({
-            message: 'An Error Occured'
+        .catch(error => {
+            res.json({
+                error
+            })
         })
-    })
+    }else{
+        Employee.find()
+        .then(data => {
+            res.status(200).json({
+                data
+            })
+        })
+        .catch(error => {
+            res.status(400).json({
+                error
+            })
+        })
+    }
 }
 
 // Show Employee By ID
