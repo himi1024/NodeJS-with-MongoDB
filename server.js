@@ -4,6 +4,10 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 
+// Using the .env properties file
+const dotenv = require('dotenv')
+dotenv.config()
+
 const EmployeeRoute = require('./routes/employee')
 const AuthRoute     = require('./routes/auth')
 
