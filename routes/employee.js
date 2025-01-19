@@ -4,9 +4,10 @@ const router = express.Router()
 // Import the Employee Controller
 const EmployeeController = require('../controllers/EmployeeController')
 const upload             = require('../middleware/upload')
+const authenticate       = require('../middleware/authenticate')
 
 // API Endpoint
-router.get('/', EmployeeController.index)
+router.get('/', authenticate, EmployeeController.index)
 router.post('/show', EmployeeController.show)
 // Upload Single File
 //router.post('/store', upload.single('avatar'), EmployeeController.store)

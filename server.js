@@ -4,7 +4,12 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
 
+// Using the .env properties file
+const dotenv = require('dotenv')
+dotenv.config()
+
 const EmployeeRoute = require('./routes/employee')
+const AuthRoute     = require('./routes/auth')
 
 mongoose.connect('mongodb://localhost:27017/testdb')
 const db = mongoose.connection
@@ -23,6 +28,7 @@ const app = express()
 app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// http://localhost:3000/uploads/<image>
 app.use('/uploads', express.static('uploads'))
 
 const PORT = process.env.PORT || 3000
@@ -31,5 +37,6 @@ app.listen(PORT, () => {
     console.log(`Server is runing on port ${PORT}`)
 })
 
-// Employee API-endpoint
+// API-endpoint
 app.use('/api/employee', EmployeeRoute)
+app.use('/api', AuthRoute)
