@@ -6,7 +6,8 @@ const employeeScheme = new Schema({
     designation: { type: String },
     email:       { type: String },
     phone:       { type: String },
-    age:         { type: Number }
+    age:         { type: Number },
+    avatar:      { type: String }
 }, {timestamps: true})
 
 const Employee = mongoose.model('Employee', employeeScheme)
